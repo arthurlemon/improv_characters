@@ -3,8 +3,16 @@ import json
 from generation import generate_random_character
 
 @st.cache_data
-def load_data():
-    with open('character_list.json', 'r') as f:
+def load_data() -> dict:
+    """Load character data from a JSON file into a dictionary.
+
+    This function reads a JSON file into a dictionary and caches the result to
+    prevent unnecessary file reads on subsequent calls until the file changes.
+
+    Returns:
+        The dictionary containing character data.
+    """
+    with open('character_list.json', 'r', encoding='utf-8') as f:  # It's good practice to specify encoding
         data = json.load(f)
     return data
 

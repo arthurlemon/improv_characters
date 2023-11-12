@@ -1,21 +1,38 @@
 import random
-def generate_random_character(formatted_elements, sex=None, adjective=False, action=False):
-    character_type = sex + "_character" if sex in ['male', 'female'] else None
-    adjective_type = sex + "_adjective" if sex in ['male', 'female'] and adjective else None
-    action_type = sex + "_action" if sex in ['male', 'female'] and action else None
 
-    if sex not in ['male', 'female']:
+def generate_random_character(formatted_elements: dict[str, list[str]], sex: str | None = None, 
+                              adjective: bool = False, action: bool = False) -> str:
+    """
+    Generate a random character description based on specified attributes.
+    
+    This function creates a random combination of character attributes for improvisational purposes. 
+    It allows the user to specify a sex ('male', 'female'), and whether to include an adjective and/or an action.
+    
+    Args:
+        formatted_elements: A dictionary with keys as attribute types and values as lists of corresponding options.
+        sex: The sex of the character to generate ('male', 'female', or 'any'/'None' for no preference).
+        adjective: A boolean indicating whether to include an adjective in the description.
+        action: A boolean indicating whether to include an action in the description.
+        
+    Returns:
+        A string with the randomly generated character description.
+    """
+    
+    # Define types based on sex
+    if sex in ['male', 'female']:
+        character_type = f"{sex}_character"
+        adjective_type = f"{sex}_adjective" if adjective else ''
+        action_type = f"{sex}_action" if action else ''
+    else:  # If sex is not specified or is 'any', choose randomly
         sex = random.choice(['male', 'female'])
-        character_type = sex + "_character"
-        if adjective:
-            adjective_type = sex + "_adjective"
-        if action:
-            action_type = sex + "_action"
+        character_type = f"{sex}_character"
+        adjective_type = f"{sex}_adjective" if adjective else ''
+        action_type = f"{sex}_action" if action else ''
 
     # Random selection of character, adjective, and action
-    character = random.choice(formatted_elements[character_type]) if character_type in formatted_elements else ''
-    adjective = random.choice(formatted_elements[adjective_type]) if adjective_type and adjective_type in formatted_elements else ''
-    action = random.choice(formatted_elements[action_type]) if action_type and action_type in formatted_elements else ''
+    character = random.choice(formatted_elements[character_type])
+    adjective = random.choice(formatted_elements[adjective_type]) if adjective else ''
+    action = random.choice(formatted_elements[action_type]) if action else ''
 
-    # Create and return the final combination, ensuring non-empty selections are concatenated.
-    return ' '.join(filter(None, [character, adjective, action])).strip()
+    # Combine the results and return them
+    return ' '.join(part for part in [character, adjective, action] if part).strip()
