@@ -26,7 +26,7 @@ st.write(f"Inspiré de [ce site](http://www.improse.net/res/geneperso.htm)")
 # User inputs for the character generation
 sex = st.radio("Choisir un genre pour le personnage", ('homme', 'femme', "peu importe"), index=2)
 adjective = st.checkbox('Inclure un adjectif')
-action = st.checkbox('Include une action')
+action = st.checkbox('Inclure une action')
 
 # Button to generate character
 if st.button('Créer un personnage'):
