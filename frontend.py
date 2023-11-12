@@ -18,15 +18,18 @@ def load_data() -> dict:
 
 character_list = load_data()
 
-st.subheader('Improv Character Generator')
+st.subheader('Générateur de Personnages')
+
+st.markdown("Utlisez-moi pour varier vos personnages en impro !")
+st.write(f"Inspiré de [ce site](http://www.improse.net/res/geneperso.htm)")
 
 # User inputs for the character generation
-sex = st.radio("Choose the character's sex", ('any', 'male', 'female'))
-adjective = st.checkbox('Include an adjective')
-action = st.checkbox('Include an action')
+sex = st.radio("Choisir un genre pour le personnage", ('homme', 'femme', "peu importe"), index=2)
+adjective = st.checkbox('Inclure un adjectif')
+action = st.checkbox('Include une action')
 
 # Button to generate character
-if st.button('Generate Character'):
+if st.button('Créer un personnage'):
     # Call the function to generate a random character
     character_combination = generate_random_character(character_list, sex, adjective, action)
     # Display the generated character combination

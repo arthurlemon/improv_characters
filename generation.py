@@ -18,7 +18,10 @@ def generate_random_character(formatted_elements: dict[str, list[str]], sex: str
         A string with the randomly generated character description.
     """
     
-    # Define types based on sex
+    
+    translation = {"homme": "male", "femme": "female"}
+    sex = translation.get(sex)
+    
     if sex in ['male', 'female']:
         character_type = f"{sex}_character"
         adjective_type = f"{sex}_adjective" if adjective else ''
